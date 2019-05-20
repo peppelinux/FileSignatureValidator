@@ -57,10 +57,20 @@ def get_p7m_signatures(fname, only_valids=False):
     """
     """
     d = OrderedDict()
-    verification_cmd = "openssl smime -verify -noverify -in {} -inform DER -out /dev/null 2>&1"
-    verification_result = subprocess.check_output(verification_cmd.format(fname).split(' '),
+    #verification_cmd = "openssl smime -verify -noverify -in {} -inform DER -out /dev/null 2>&1".format(fname)
+    #pkcs7_cmd = 'openssl pkcs7 -print -text -inform der -in {}'.format(fname)
+    verification_result = subprocess.check_output(["openssl",
+                                                   "smime",
+                                                   "-verify",
+                                                   "-noverify",
+                                                   "-in",
+                                                   fname,
+                                                   "-inform",
+                                                   "DER",
+                                                   "-out",
+                                                   "/dev/null",
+                                                   "2>&1"],
                                                   stderr=subprocess.STDOUT).decode('utf-8')
-    pkcs7_cmd = 'openssl pkcs7 -print -text -inform der -in {}'
 
     check_validity = 'successful' in verification_result
     if check_validity:
@@ -69,7 +79,14 @@ def get_p7m_signatures(fname, only_valids=False):
         d['Signature Validation'] = 'Signature has not yet been verified'
         return [d]
 
-    pkcs_result = subprocess.check_output(pkcs7_cmd.format(fname).split(' '),
+    pkcs_result = subprocess.check_output(["openssl",
+                                           "pkcs7",
+                                           "-print",
+                                           "-text",
+                                           "-inform",
+                                           "der",
+                                           "-in",
+                                           fname],
                                           stderr=subprocess.STDOUT).decode('utf-8')
     pkcs_subject, pkcs_date = (re.search('subject:[\s]*(?P<subject>.*)', pkcs_result),
                                re.search('UTCTIME:(?P<date_signed>.*)', pkcs_result))
@@ -104,7 +121,7 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('-v', required=False, action='store_true',
-                        help="returns only valids signatures")
+                        help="returns onvly valids signs")
     parser.add_argument('-f', required=True,
                         help="filename to inspect")
     parser.add_argument('-t', required=False, default='pdf',
