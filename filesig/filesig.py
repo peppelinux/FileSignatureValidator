@@ -25,7 +25,12 @@ _ATTRIBUTES = ['Signature Type',
                'Signing Time']
 
 def get_pdf_signatures(fname, only_valids=False):
-    raw_result = subprocess.check_output(['pdfsig', fname]).decode('utf-8')
+    try:
+        raw_result = subprocess.check_output(['pdfsig', fname],
+                                             stderr=subprocess.STDOUT).decode('utf-8')
+    except:
+        return []
+
     result = re.split('Signature #[0-9]+:\n', raw_result)
 
     pdf_name = result[0]
@@ -59,18 +64,21 @@ def get_p7m_signatures(fname, only_valids=False):
     d = OrderedDict()
     #verification_cmd = "openssl smime -verify -noverify -in {} -inform DER -out /dev/null 2>&1".format(fname)
     #pkcs7_cmd = 'openssl pkcs7 -print -text -inform der -in {}'.format(fname)
-    verification_result = subprocess.check_output(["openssl",
-                                                   "smime",
-                                                   "-verify",
-                                                   "-noverify",
-                                                   "-in",
-                                                   fname,
-                                                   "-inform",
-                                                   "DER",
-                                                   "-out",
-                                                   "/dev/null",
-                                                   "2>&1"],
-                                                  stderr=subprocess.STDOUT).decode('utf-8')
+    try:
+        verification_result = subprocess.check_output(["openssl",
+                                                       "smime",
+                                                       "-verify",
+                                                       "-noverify",
+                                                       "-in",
+                                                       fname,
+                                                       "-inform",
+                                                       "DER",
+                                                       "-out",
+                                                       "/dev/null",
+                                                       "2>&1"],
+                                                      stderr=subprocess.STDOUT).decode('utf-8')
+    except:
+        return []
 
     check_validity = 'successful' in verification_result
     if check_validity:
