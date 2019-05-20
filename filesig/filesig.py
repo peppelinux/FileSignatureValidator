@@ -104,7 +104,7 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument('-v', required=False, action='store_true',
-                        help="returns onvly valids signs")
+                        help="returns only valids signatures")
     parser.add_argument('-f', required=True,
                         help="filename to inspect")
     parser.add_argument('-t', required=False, default='pdf',
