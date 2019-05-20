@@ -13,7 +13,7 @@ if os.system('pdfsig -v') != 0:
     raise Exception(('pdfsig is not installed.'
                      'Please install poppler or poppler-utils'))
 
-if os.system('openssl -v') != 0:
+if os.system('openssl version') != 0:
     raise Exception(('openssl is not installed.'
                      'Please install it'))
 
