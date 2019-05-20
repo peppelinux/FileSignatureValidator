@@ -108,7 +108,8 @@ def get_signatures(fname, type='pdf', only_valids=False):
 
     tfile = fname
     # check if the file is a string (path to it) or a buffered io objects (with or open())
-    if isinstance(fname, io.BufferedReader):
+    #if isinstance(fname, io.BufferedReader):
+    if not isinstance(fname, str):
         temp_file = tempfile.NamedTemporaryFile()
         temp_file.write(fname.read())
         temp_file.flush()
