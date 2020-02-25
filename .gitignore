@@ -1,0 +1,3 @@
+build/*
+dist/*
+filesig.egg-info/
