@@ -11,6 +11,7 @@ from collections import OrderedDict
 
 
 proc_pdfsig = subprocess.Popen('pdfsig -v',
+                               shell=True,
                                stdout = subprocess.PIPE,
                                stderr = subprocess.PIPE)
 stdout, stderr = proc_pdfsig.communicate()
@@ -21,6 +22,7 @@ if stderr:
                      'Please install poppler or poppler-utils'))
 
 proc_openssl = subprocess.Popen('openssl version',
+                                shell=True,
                                 stdout = subprocess.PIPE,
                                 stderr = subprocess.PIPE)
 stdout, stderr = proc_openssl.communicate()
