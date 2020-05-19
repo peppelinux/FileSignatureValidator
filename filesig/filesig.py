@@ -16,8 +16,8 @@ proc_pdfsig = subprocess.Popen('pdfsig -v',
                                stderr = subprocess.PIPE)
 stdout, stderr = proc_pdfsig.communicate()
 if stderr:
-    print(stdout)
-    print(stderr)
+    print(stdout.decode())
+    print(stderr.decode())
     raise Exception(('pdfsig is not installed.'
                      'Please install poppler or poppler-utils'))
 
@@ -27,8 +27,8 @@ proc_openssl = subprocess.Popen('openssl version',
                                 stderr = subprocess.PIPE)
 stdout, stderr = proc_openssl.communicate()
 if stderr:
-    print(stdout)
-    print(stderr)
+    print(stdout.decode())
+    print(stderr.decode())
     raise Exception(('openssl is not installed.'
                      'Please install it'))
 
