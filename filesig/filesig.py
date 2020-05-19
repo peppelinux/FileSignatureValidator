@@ -9,11 +9,24 @@ import tempfile
 
 from collections import OrderedDict
 
-if os.system('pdfsig -v') != 0:
+
+proc_pdfsig = subprocess.Popen('pdfsig -v',
+                               stdout = subprocess.PIPE,
+                               stderr = subprocess.PIPE)
+stdout, stderr = proc_pdfsig.communicate()
+if stderr:
+    print(stdout)
+    print(stderr)
     raise Exception(('pdfsig is not installed.'
                      'Please install poppler or poppler-utils'))
 
-if os.system('openssl version') != 0:
+proc_openssl = subprocess.Popen('openssl version',
+                                stdout = subprocess.PIPE,
+                                stderr = subprocess.PIPE)
+stdout, stderr = proc_openssl.communicate()
+if stderr:
+    print(stdout)
+    print(stderr)
     raise Exception(('openssl is not installed.'
                      'Please install it'))
 
