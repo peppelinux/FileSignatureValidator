@@ -15,7 +15,7 @@ proc_pdfsig = subprocess.Popen('pdfsig -v',
                                stdout = subprocess.PIPE,
                                stderr = subprocess.PIPE)
 stdout, stderr = proc_pdfsig.communicate()
-if stderr:
+if stdout:
     print(stdout.decode())
     print(stderr.decode())
     raise Exception(('pdfsig is not installed.'
