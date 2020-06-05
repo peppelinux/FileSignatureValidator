@@ -5,7 +5,7 @@ def readme():
         return f.read()
 
 setup(name='filesig',
-      version='0.3',
+      version='0.3.0-1',
       description="Python command on top of 'poppler-utils' and 'openssl' used to verify file signatures",
       long_description=readme(),
       classifiers=['Development Status :: 5 - Production/Stable',
