@@ -7,5 +7,5 @@ Please open Issues if you need this additional feature.
 
 # other tools
 
-https://github.com/MatthiasValvekens/pyHanko
-https://github.com/m32/endesive
+- https://github.com/MatthiasValvekens/pyHanko
+- https://github.com/m32/endesive
